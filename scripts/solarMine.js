@@ -1,6 +1,8 @@
 import {  purchaseMineral } from "./database.js"
 import { Governors } from "./governors.js";
 import { Facilities } from "./facilities.js";
+import { FacilityMinerals, SpaceCart } from "./facilityMinerals.js";
+import { ColonyInventory } from "./colonyInventory.js";
 
 document.addEventListener(
     "click",
@@ -19,7 +21,7 @@ export const solarMine = () => {
         <section class=”resources”> 
             ${Governors()}
             <article id=”resourceList”>
-
+                ${ColonyInventory()}
             </article>
 	    </section>
 	
@@ -29,11 +31,12 @@ export const solarMine = () => {
 
 	
 	    <section class=”mineralList”>
-
+            ${FacilityMinerals()}
 	    </section>
 
 	    <aside class=”spaceCart”>
-		    <p></p>
+		    <h2>Space Cart</h2>
+            ${SpaceCart()}
 	        <article>
                 <button id="orderButton">Purchase Mineral</button>
             </article>

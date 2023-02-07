@@ -6,7 +6,7 @@ export const Facilities = () => {
 
     let html = `<h3 class="facilityChoice">Choose a facility</h3>
     
-        <select id=”facility”> 
+        <select id="facility"> 
             <option value="0">Select a Facility</option>`
         for (const facility of facilities) {
         html += `<option value=${facility.id}> ${facility.name} </option> `
