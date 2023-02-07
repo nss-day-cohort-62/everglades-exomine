@@ -1,4 +1,6 @@
 import {  purchaseMineral } from "./database.js"
+import { Governors } from "./governors.js";
+import { Facilities } from "./facilities.js";
 
 document.addEventListener(
     "click",
@@ -15,14 +17,14 @@ export const solarMine = () => {
         <h1>Solar System Mining Marketplace</h1>
 
         <section class=”resources”> 
-            
+            ${Governors()}
             <article id=”resourceList”>
 
             </article>
 	    </section>
 	
 	    <section class=”facilities”>
-            
+            ${Facilities()}
 	    </section>
 
 	
