@@ -28,7 +28,7 @@ export const FacilityMinerals = () => {
                     <input type="radio" name="mineral" value="${mineral.id}" /> ${facilityMineral.quantity} tons of ${mineral.type}
                     </li>
                     `
-
+                    
             }       
             }
             
