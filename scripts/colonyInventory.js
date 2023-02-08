@@ -31,7 +31,7 @@ export const ColonyInventory = () => {
                         if (facility.id === colonyInventory.selectedFacility) {
                             for (const mineral of minerals) {
                                 if (mineral.id === colonyInventory.selectedMineral) {
-                                    html += `${colonyInventory.quantity} tons of ${mineral.type}`
+                                    html += `<p>${colonyInventory.quantity} tons of ${mineral.type}</p>`
                                 }
                             }
                         }

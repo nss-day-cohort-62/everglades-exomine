@@ -18,28 +18,30 @@ export const solarMine = () => {
     return `
         <h1>Solar System Mining Marketplace</h1>
 
-        <section class=”resources”> 
+        <section class="resources"> 
+            <article class="govs">    
             ${Governors()}
-            <article id=”resourceList”>
+            </article>
+            <article id="resourceList">
                 ${ColonyInventory()}
             </article>
 	    </section>
 	
-	    <section class=”facilities”>
+	    <section class="facilities">
             ${Facilities()}
 	    </section>
 
 	
-	    <section class=”mineralList”>
+	    <section class="mineralList">
+            <article class="facilityMinerals">
             ${FacilityMinerals()}
-	    </section>
+            </article>
 
-	    <aside class=”spaceCart”>
-		    <h2>Space Cart</h2>
+            <article class="spaceCart">
+            <h2>Space Cart</h2>
             ${SpaceCart()}
-	        <article>
                 <button id="orderButton">Purchase Mineral</button>
             </article>
-	    </aside>
-    `
+        </section>
+        `
 }
