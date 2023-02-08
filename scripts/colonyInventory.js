@@ -24,9 +24,9 @@ export const ColonyInventory = () => {
         }
     for (const governor of governors) {
         if (governor.id === governorTransientState().selectedGovernors) {
+            setColony(governor.colonyId)
             for (const colonyInventory of colonyInventories) {
                 if (colonyInventory.selectedColony === governor.colonyId) {
-                    setColony(governor.colonyId)
                     for (const facility of facilities) {
                         if (facility.id === colonyInventory.selectedFacility) {
                             for (const mineral of minerals) {
