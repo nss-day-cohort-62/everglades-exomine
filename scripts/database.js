@@ -76,13 +76,14 @@ const database = {
     }],
     colonyInventory: [{
         id: 1,
-        colonyId: 1,
-        mineralId: 3,
-        facilityId: 1,
+        selectedColony: 1,
+        selectedMineral: 3,
+        selectedFacility: 1,
         quantity: 2
 
     }],
-    transientState: {}
+    transientState: {}, 
+    governorTransientState: {},
 }
 
 export const getGovernors = () => {
@@ -113,8 +114,12 @@ export const TransientState = () => {
     return database.transientState
 }
 
+export const governorTransientState = () => {
+    return database.governorTransientState
+}
+
 export const setGovernors = (governorsId) => {
-    database.transientState.selectedGovernors = governorsId
+    database.governorTransientState.selectedGovernors = governorsId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 
@@ -125,7 +130,6 @@ export const setFacility = (facilityId) => {
 
 export const setColony = (colonyId) => {
     database.transientState.selectedColony = colonyId
-    document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 
 export const setMineral = (mineralId) => {
@@ -136,10 +140,21 @@ export const setMineral = (mineralId) => {
 export const purchaseMineral = () => {
     const newOrder = {...database.transientState}
 
+    const colonyInventory = getColonyInventories()
+
     const lastIndex = database.colonyInventory.length - 1
     newOrder.id = database.colonyInventory[lastIndex].id + 1
 
-    database.colonyInventory.push(newOrder)
+    for (const colonyInv of colonyInventory){
+        if (colonyInv.selectedMineral === newOrder.selectedMineral){
+            colonyInv.quantity ++
+        } 
+        else {
+            newOrder.quantity = 1
+            database.colonyInventory.push(newOrder)
+        }
+    }
+ 
 
     database.transientState = {}
     

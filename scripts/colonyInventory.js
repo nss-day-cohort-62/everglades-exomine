@@ -2,28 +2,36 @@
 If facilityMinerals.colonyId ===  selected governor.colonyId, loop through minerals 
 if facilityMinerals.mineralId === mineral.Id, then display “${mineral.quantity} tons of ${mineral.type}” in an <ul> */
 
-import { getColonies, getGovernors, getFacilities, getFacilityMinerals, getMinerals, setColony, setGovernors, setFacility, getColonyInventories, TransientState } from "./database.js";
+import { getColonies, getGovernors, getFacilities, getFacilityMinerals, getMinerals, setColony, setGovernors, setFacility, getColonyInventories, TransientState, governorTransientState } from "./database.js";
 
-const colonies = getColonies()
 const governors = getGovernors()
+const colonies = getColonies()
 const facilities = getFacilities()
-const facilityMinerals = getFacilityMinerals()
 const minerals = getMinerals()
-const colonyInventories = getColonyInventories()
 
 
 
 export const ColonyInventory = () => {
+    const colonyInventories = getColonyInventories()
     let html = ""
+        for (const governor of governors) {
+            if (governor.id === governorTransientState().selectedGovernors){
+                for (const colony of colonies){
+                    if (governor.colonyId === colony.id) 
+                    html += `<h2> ${colony.name} </h2>`
+                }
+            }
+        }
     for (const governor of governors) {
-        if (governor.id === TransientState().selectedGovernors) {
+        if (governor.id === governorTransientState().selectedGovernors) {
             for (const colonyInventory of colonyInventories) {
-                if (colonyInventory.colonyId === governor.colonyId) {
+                if (colonyInventory.selectedColony === governor.colonyId) {
+                    setColony(governor.colonyId)
                     for (const facility of facilities) {
-                        if (facility.id === colonyInventory.facilityId) {
+                        if (facility.id === colonyInventory.selectedFacility) {
                             for (const mineral of minerals) {
-                                if (mineral.id === colonyInventory.mineralId) {
-                                    html += `${colonyInventory.quantity} tons of ${mineral.type} from ${facility.name}`
+                                if (mineral.id === colonyInventory.selectedMineral) {
+                                    html += `${colonyInventory.quantity} tons of ${mineral.type}`
                                 }
                             }
                         }
