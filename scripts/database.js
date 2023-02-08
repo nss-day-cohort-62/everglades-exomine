@@ -140,20 +140,39 @@ export const setMineral = (mineralId) => {
 export const purchaseMineral = () => {
     const newOrder = {...database.transientState}
 
-    const colonyInventory = getColonyInventories()
+    // const colonyInventory = getColonyInventories()
 
     const lastIndex = database.colonyInventory.length - 1
     newOrder.id = database.colonyInventory[lastIndex].id + 1
 
-    for (const colonyInv of colonyInventory){
-        if (colonyInv.selectedMineral === newOrder.selectedMineral){
-            colonyInv.quantity ++
+    let foundColony
+
+    for (const colonyInv of database.colonyInventory){
+        if (colonyInv.selectedMineral === newOrder.selectedMineral && newOrder.selectedColony === colonyInv.selectedColony){
+            foundColony = colonyInv
         } 
-        else {
-            newOrder.quantity = 1
-            database.colonyInventory.push(newOrder)
+    }
+
+    if (foundColony) {
+        foundColony.quantity ++
+    }
+
+    else {
+        newOrder.quantity = 1
+        database.colonyInventory.push(newOrder)
+    }
+    let foundMineral
+
+    for (const facilityMineral of database.facilityMinerals) {
+        if (facilityMineral.mineralId === database.transientState.selectedMineral && facilityMineral.facilityId === database.transientState.selectedFacility) {
+            foundMineral = facilityMineral
         }
     }
+
+    if (foundMineral) {
+        foundMineral.quantity --
+    }
+    
  
 
     database.transientState = {}

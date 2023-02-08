@@ -6,11 +6,11 @@ in html as radio button.  */
 
 import { getFacilityMinerals, getMinerals, TransientState, getFacilities, setMineral } from "./database.js";
 
-const facilityMinerals = getFacilityMinerals()
 const minerals = getMinerals()
 const facilities = getFacilities()
 
 export const FacilityMinerals = () => {
+    const facilityMinerals = getFacilityMinerals()
     let html = `<h2>Facility Minerals`
     for (const facility of facilities) {
         if (facility.id === TransientState().selectedFacility) {
